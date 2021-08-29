@@ -1,0 +1,31 @@
+
+#box{
+    position: relative;
+    width: 1000px;
+    height: 500px;
+    background-color: #0ece8c;
+    overflow: hidden;
+    border-radius: 25px;
+    /*border-bottom-width: 5px;*/
+}
+.img-1{
+    max-height:2000px;
+    max-width: 1000px;
+    vertical-align:middle;
+}
+
+.page{
+    background-color: #e2e2ee;
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 800px;
+
+}
+.slide{
+    position: absolute;
+    width: 1000px;
+    height: 500px;
+
+}
