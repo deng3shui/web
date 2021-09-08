@@ -10,4 +10,4 @@ blog demo 暂不支持移动端
 https://deng3shui.github.io/web/blog/html/index.html
 
 clock
-https://deng3shui.github.io/web/clock/html/index.html
+https://deng3shui.github.io/web/clock/index.html
