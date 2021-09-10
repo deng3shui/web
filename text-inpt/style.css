@@ -1,0 +1,17 @@
+body{
+    height: 100vh;
+    background-color: brown;
+    color: aliceblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div{
+    font-size: 20px;
+    position: absolute;
+    bottom: 50px;
+    background-color: rgba(255, 255, 255, 0.26);
+    padding: 10px;
+    border-radius: 10px;
+}
