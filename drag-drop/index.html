@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Title</title>
+</head>
+<body>
+<div class="box">
+    <h1>请把男孩子放蓝色框里，女孩子放红色框里</h1>
+</div>
+<div class="box">
+    <div class="fill f1" draggable="true" ondragstart="drag(event)" id="1"><div></div></div>
+    <div class="fill f2" draggable="true" ondragstart="drag(event)" id="2"><div></div></div>
+    <div class="fill f3" draggable="true" ondragstart="drag(event)" id="3"><div></div></div>
+    <div class="fill f4" draggable="true" ondragstart="drag(event)" id="4"><div></div></div>
+</div>
+<div class="box">
+    <div class="empty blue" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="empty blue" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="empty red" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <div class="empty red" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
