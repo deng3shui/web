@@ -1,0 +1,27 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background: black;
+    color: whitesmoke;
+}
+.father {
+
+    height:128px;
+    width:351px;
+    background-color:whitesmoke;
+    position:relative;
+}
+
+.son {
+    height:0px;
+    width:351px;
+    transition:height 200ms;
+    background-image: url("猫头.png");
+}
+
+.father:hover .son {
+   height: 128px;
+    transition:height 800ms;
