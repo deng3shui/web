@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Title</title>
+</head>
+<body class="center">
+<div id="app" class="quiz-content center">
+
+    <div class="option" ref="Option">
+        <h1 ref="H1">{{quizData[i].question}}</h1>
+        <div>
+            <input type="radio" name="answer" id="a" class="answer" value="a" v-model="answer">
+            <label for="a" id="a_text">{{quizData[i].a}}</label></div>
+        <div>
+            <input type="radio" name="answer" id="b" class="answer" value="b" v-model="answer">
+            <label for="b" id="b_text">{{quizData[i].b}}</label></div>
+        <div>
+            <input type="radio" name="answer" id="c" class="answer" value="c" v-model="answer">
+            <label for="c" id="c_text">{{quizData[i].c}}</label></div>
+        <div>
+            <input type="radio" name="answer" id="d" class="answer" value="d" v-model="answer">
+            <label for="d" id="d_text">{{quizData[i].d}}</label></div><br>
+
+        <div class="btn">
+            <a>您选择的答案是：{{answer}}</a>
+            <div><button id="next" @click="next">继续</button>
+                <button id="submit" @click="submit">提交</button></div>
+        </div>
+    </div>
+    <div class="con center" ref="Con">
+        <h1>恭喜你，完成答题</h1>
+        <h3>您的分数是{{score}}分</h3>
+    </div>
+
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="script.js"></script>
+</html>
