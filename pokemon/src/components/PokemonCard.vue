@@ -1,10 +1,10 @@
 <template>
   <div class="container">
+    <h1>type{{type.value}} name{{pokemonNameIsShow}}</h1>
     <div class="poke-container"  v-for="(item,index) in pokemons">
-      <div class="pokemon" :style="{ backgroundColor: colors[item.type]}" v-show="item.type==PokemonType||PokemonType=='all'">
+      <div class="pokemon" :style="{ backgroundColor: colors[item.type]}"  v-show="isType(item.type)">
         <div class="img-container">
           <img v-lazy="item.src" alt="">
-<!--          <img v-lazy="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+ item .id+'.png'" alt="">-->
         </div>
         <div class="info">
           <span class="number">ID:{{ item.id.toString().padStart(3, '0')}}</span>
@@ -12,16 +12,30 @@
           <small class="type">Type: <span>{{ item.type}}</span> </small>
         </div>
       </div>
+<!--      <div class="pokemon" :style="{ backgroundColor: colors[item.type]}" @keyup="isName(pokemonName,item.name)" v-show="pokemonNameIsShow">-->
+<!--        <div class="img-container">-->
+<!--          <img v-lazy="item.src" alt="">-->
+<!--        </div>-->
+<!--        <div class="info">-->
+<!--          <span class="number">ID:{{ item.id.toString().padStart(3, '0')}}</span>-->
+<!--          <h3 class="name">{{ item.name}}</h3>-->
+<!--          <small class="type">Type: <span>{{ item.type}}</span> </small>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
+
+
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 const pokemons = []
+let pokemonTypeIsShow = true
+let pokemonNameIsShow = false
 export default {
   name: "PokemonCard",
-  props: ['type'],
+  props: ['type','name'],
   data(){
     return{
       colors : {
@@ -42,14 +56,17 @@ export default {
         normal: '#F5F5F5'
       },
       pokemons,
-      PokemonType:'all',
+      pokemonType:'all',
+      pokemonName:'',
+      pokemonTypeIsShow,
+      pokemonNameIsShow,
     }
   },
-  methods:{
-    getPokemon(count){
+  methods: {
+    getPokemon(count) {
       axios
 
-          .get('https://pokeapi.co/api/v2/pokemon/'+count)
+          .get('https://pokeapi.co/api/v2/pokemon/' + count)
           .then(response => {
                 let obj = {}
                 let types = response.data.types.map(type => type.type.name)
@@ -59,12 +76,32 @@ export default {
                 obj.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${response.data.id}.png`
                 this.pokemons.push(obj)
                 count++
-                if(count<899){
+                if (count < 899) {
                   this.getPokemon(count)
                 }
               }
+          )
+    },
+    isName(inputName, name) {
+      this.pokemonTypeIsShow = false  //禁用按类型显示
+      if (inputName != name) return false
+      else return true
+    },
+    isType(nowType) {
+      if ((this.type.value === 'all' || this.type.value === nowType)&&this.type.isShow) {
 
-          )},
+        return true
+      }
+      else{
+        return false
+      }
+        // this.pokemonTypeIsShow = false
+
+    },
+    test(a){
+      console.log(this.isType(a))
+
+    }
   },
   beforeMount() {
     this.getPokemon(1)
@@ -74,7 +111,12 @@ export default {
     // 监听childFrom（父组件传来的数据），并赋值给子组件的表单中
     type: {
       handler(val) {
-        this.PokemonType = this.type;
+        this.pokemonType = this.type;
+      }
+    },
+    name: {
+      handler(val) {
+        this.pokemonName = this.name;
       }
     },
   }

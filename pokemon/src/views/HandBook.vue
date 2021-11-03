@@ -1,22 +1,9 @@
 <template>
   <div>
-<!--    &lt;!&ndash;  <div><a>类型：</a><el-select v-for="item in colors" v-model="value"  placeholder="请选择">&ndash;&gt;-->
-
-<!--    <div><a>类型：</a><el-select ref="select" v-model="value"  placeholder="请选择">-->
-
-<!--      <el-option-->
-<!--          v-for="(value,key) in colors"-->
-<!--          :value="key"-->
-<!--      >-->
-<!--      </el-option>-->
-<!--    </el-select></div>-->
-<!--    <el-option-->
-<!--        v-for="(value,key) in colors"-->
-<!--        :value="key"-->
-<!--    >-->
-<!--    </el-option>-->
-    <el-button>默认按钮</el-button>
-    <el-select v-model="value" placeholder="请选择">
+    <h1>{{value}}</h1>
+    <el-select v-model="value"
+               placeholder="请选择类型"
+               @change="typeChange()">
       <el-option
           v-for="(item,value) in colors"
           :key="value"
@@ -24,13 +11,22 @@
       >
       </el-option>
     </el-select>
-    <pokemon-card :type="value"></pokemon-card>
+    <el-input
+        style="width: 220px ;margin-left: 100px"
+        placeholder="请输入查找名字"
+        prefix-icon="el-icon-search"
+        v-model="pokemonName"
+        @keyup="nameChange()"
+    >
+    </el-input>
+    <pokemon-card :type="pokemonType" :name="pokemonName" ></pokemon-card>
   </div>
 </template>
 
 <script>
 import PokemonCard from "@/components/PokemonCard";
-
+let pokemonType = {}
+let  pokemonName = {}
 export default {
   name: "HandBook",
   components: {
@@ -55,10 +51,28 @@ export default {
         fighting: '#E6E0D4',
         normal: '#F5F5F5'
       },
-      value:'',
+      value:'all',
+      pokemonType,
+      pokemonName,
 
     }
   },
+  methods:{
+    typeChange(){
+      this. pokemonType.isShow = true
+      this.pokemonName.valu = false
+      this.pokemonType.value = this.value
+      console.log("调用typechange",this.pokemonType.value,this. pokemonType.isShow)
+    },
+    nameChange(){
+      this. pokemonName.isShow = true
+      this. pokemonType.isShow = false
+      this.pokemonName.value = this.value
+      console.log("调用Namechange",this.pokemonName.value,this. pokemonName.isShow)
+    }
+  },
+  mounted() {
+  }
 }
 </script>
 
