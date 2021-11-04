@@ -1,8 +1,7 @@
 <template>
   <div class="container">
-    <h1>type{{type.value}} name{{pokemonNameIsShow}}</h1>
     <div class="poke-container"  v-for="(item,index) in pokemons">
-      <div class="pokemon" :style="{ backgroundColor: colors[item.type]}"  v-show="isType(item.type)">
+      <div class="pokemon" :style="{ backgroundColor: colors[item.type]}"  v-show="isType(item.type)||isFirst">
         <div class="img-container">
           <img v-lazy="item.src" alt="">
         </div>
@@ -12,16 +11,16 @@
           <small class="type">Type: <span>{{ item.type}}</span> </small>
         </div>
       </div>
-<!--      <div class="pokemon" :style="{ backgroundColor: colors[item.type]}" @keyup="isName(pokemonName,item.name)" v-show="pokemonNameIsShow">-->
-<!--        <div class="img-container">-->
-<!--          <img v-lazy="item.src" alt="">-->
-<!--        </div>-->
-<!--        <div class="info">-->
-<!--          <span class="number">ID:{{ item.id.toString().padStart(3, '0')}}</span>-->
-<!--          <h3 class="name">{{ item.name}}</h3>-->
-<!--          <small class="type">Type: <span>{{ item.type}}</span> </small>-->
-<!--        </div>-->
-<!--      </div>-->
+      <div class="pokemon" :style="{ backgroundColor: colors[item.type]}" v-if="isName(item.name)">
+        <div class="img-container">
+          <img v-lazy="item.src" alt="">
+        </div>
+        <div class="info">
+          <span class="number">ID:{{ item.id.toString().padStart(3, '0')}}</span>
+          <h3 class="name">{{ item.name}}</h3>
+          <small class="type">Type: <span>{{ item.type}}</span> </small>
+        </div>
+      </div>
     </div>
 
 
@@ -31,11 +30,9 @@
 <script>
 import axios from 'axios'
 const pokemons = []
-let pokemonTypeIsShow = true
-let pokemonNameIsShow = false
 export default {
   name: "PokemonCard",
-  props: ['type','name'],
+  props: ['type','name','isFirst'],
   data(){
     return{
       colors : {
@@ -58,8 +55,6 @@ export default {
       pokemons,
       pokemonType:'all',
       pokemonName:'',
-      pokemonTypeIsShow,
-      pokemonNameIsShow,
     }
   },
   methods: {
@@ -82,10 +77,13 @@ export default {
               }
           )
     },
-    isName(inputName, name) {
-      this.pokemonTypeIsShow = false  //禁用按类型显示
-      if (inputName != name) return false
-      else return true
+    isName(nowName) {
+      if ((this.name.value === nowName)&&this.name.isShow) {
+        return true
+      }
+      else{
+        return false
+      }
     },
     isType(nowType) {
       if ((this.type.value === 'all' || this.type.value === nowType)&&this.type.isShow) {
@@ -107,6 +105,9 @@ export default {
     this.getPokemon(1)
     console.log(this.pokemons)
   },
+  beforeUpdate() {
+
+  },
   watch: {
     // 监听childFrom（父组件传来的数据），并赋值给子组件的表单中
     type: {
@@ -117,8 +118,14 @@ export default {
     name: {
       handler(val) {
         this.pokemonName = this.name;
-      }
+      },
+
     },
+    isFirst:{
+      handler(val) {
+
+      },
+    }
   }
 }
 </script>

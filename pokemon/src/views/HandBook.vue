@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>{{value}}</h1>
     <el-select v-model="value"
                placeholder="请选择类型"
                @change="typeChange()">
@@ -15,11 +14,11 @@
         style="width: 220px ;margin-left: 100px"
         placeholder="请输入查找名字"
         prefix-icon="el-icon-search"
-        v-model="pokemonName"
-        @keyup="nameChange()"
+        v-model="name"
+        @change="nameChange()"
     >
     </el-input>
-    <pokemon-card :type="pokemonType" :name="pokemonName" ></pokemon-card>
+    <pokemon-card :type="pokemonType" :name="pokemonName" :isFirst="isFirst" ></pokemon-card>
   </div>
 </template>
 
@@ -27,6 +26,7 @@
 import PokemonCard from "@/components/PokemonCard";
 let pokemonType = {}
 let  pokemonName = {}
+let isFirst = "true"
 export default {
   name: "HandBook",
   components: {
@@ -52,23 +52,25 @@ export default {
         normal: '#F5F5F5'
       },
       value:'all',
+      name:'',
       pokemonType,
       pokemonName,
+      isFirst,
 
     }
   },
   methods:{
     typeChange(){
+      this.isFirst = false
       this. pokemonType.isShow = true
       this.pokemonName.valu = false
       this.pokemonType.value = this.value
-      console.log("调用typechange",this.pokemonType.value,this. pokemonType.isShow)
     },
     nameChange(){
+      this.isFirst = false
       this. pokemonName.isShow = true
       this. pokemonType.isShow = false
-      this.pokemonName.value = this.value
-      console.log("调用Namechange",this.pokemonName.value,this. pokemonName.isShow)
+      this.pokemonName.value = this.name
     }
   },
   mounted() {
