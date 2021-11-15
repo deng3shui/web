@@ -10,27 +10,30 @@
       >
       </el-option>
     </el-select>
-    <el-input
-        style="width: 220px ;margin-left: 100px"
-        placeholder="请输入查找名字"
-        prefix-icon="el-icon-search"
-        v-model="name"
-        @change="nameChange()"
-    >
-    </el-input>
+<!--    <el-input-->
+<!--        style="width: 220px ;margin-left: 100px"-->
+<!--        placeholder="请输入查找名字"-->
+<!--        prefix-icon="el-icon-search"-->
+<!--        v-model="name"-->
+<!--        @change="nameChange()"-->
+<!--    >-->
+<!--    </el-input>-->
+    <Detailed></Detailed>
     <pokemon-card :type="pokemonType" :name="pokemonName" :isFirst="isFirst" ></pokemon-card>
   </div>
 </template>
 
 <script>
 import PokemonCard from "@/components/PokemonCard";
+import Detailed from "@/components/Detailed";
 let pokemonType = {}
 let  pokemonName = {}
 let isFirst = "true"
 export default {
   name: "HandBook",
   components: {
-    PokemonCard
+    PokemonCard,
+    Detailed
   },
   data(){
     return{

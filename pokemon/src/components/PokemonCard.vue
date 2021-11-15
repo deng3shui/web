@@ -1,17 +1,7 @@
 <template>
   <div class="container">
     <div class="poke-container"  v-for="(item,index) in pokemons">
-      <div class="pokemon" :style="{ backgroundColor: colors[item.type]}"  v-show="isType(item.type)||isFirst">
-        <div class="img-container">
-          <img v-lazy="item.src" alt="">
-        </div>
-        <div class="info">
-          <span class="number">ID:{{ item.id.toString().padStart(3, '0')}}</span>
-          <h3 class="name">{{ item.name}}</h3>
-          <small class="type">Type: <span>{{ item.type}}</span> </small>
-        </div>
-      </div>
-      <div class="pokemon" :style="{ backgroundColor: colors[item.type]}" v-if="isName(item.name)">
+      <div class="pokemon" :style="{ backgroundColor: colors[item.type]}"  v-show="(isType(item.type)&&type.isShow)||isFirst||(isName(item.name)&&name.isShow)">
         <div class="img-container">
           <img v-lazy="item.src" alt="">
         </div>
@@ -22,8 +12,6 @@
         </div>
       </div>
     </div>
-
-
   </div>
 </template>
 
@@ -32,7 +20,7 @@ import axios from 'axios'
 const pokemons = []
 export default {
   name: "PokemonCard",
-  props: ['type','name','isFirst'],
+  props: ['type','name','isFirst','gameId'],
   data(){
     return{
       colors : {
@@ -96,6 +84,9 @@ export default {
         // this.pokemonTypeIsShow = false
 
     },
+    isId(a){
+      return a==this.gameId
+    },
     test(a){
       console.log(this.isType(a))
 
@@ -125,6 +116,11 @@ export default {
       handler(val) {
 
       },
+    },
+    gameId: {
+      handler(val) {
+
+      }
     }
   }
 }
@@ -137,13 +133,6 @@ export default {
   margin: 0 auto;
   max-width: 1200px;
   padding: 50px;
-}
-
-.poke-container {
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-  max-width: 1200px;
 }
 
 .pokemon {
