@@ -84,17 +84,9 @@ export default {
         // this.pokemonTypeIsShow = false
 
     },
-    isId(a){
-      return a==this.gameId
-    },
-    test(a){
-      console.log(this.isType(a))
-
-    }
   },
   beforeMount() {
     this.getPokemon(1)
-    console.log(this.pokemons)
   },
   beforeUpdate() {
 
