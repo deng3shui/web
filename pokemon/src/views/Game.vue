@@ -3,10 +3,12 @@
   <el-header>
     <el-progress style="width:600px" :text-inside="true" :stroke-width="24" :percentage="100" status="success"></el-progress>
   </el-header>
-  <h1 v-show="showName()">{{correctAnswer}}111</h1>
   <el-main>
     <img :src=pokemon.src alt="">
   </el-main>
+  <div style="height: 100px; width:200px;">
+    <h1 v-show="imgIsShow" style="position: absolute;">I am {{correctAnswer}}</h1>
+  </div>
   <el-footer>
     <el-radio-group v-model="radio" @change = 'showName(radio)'>
       <el-radio :label=pokemon.option[0]>{{ pokemon.option[0] }}</el-radio>
@@ -21,6 +23,7 @@
 <script>
 import PokemonCard from "@/components/PokemonCard";
 let pokemon = {}
+let imgIsShow
 let correctAnswer = ''
 export default {
   name: "Game",
@@ -28,7 +31,8 @@ export default {
   data(){
     return{
       pokemon,
-      radio:0,
+      imgIsShow,
+      radio:'111',
       correctAnswer,
 
     }
@@ -43,19 +47,20 @@ export default {
         JSON.parse(localStorage.getItem(Math.round(Math.random()*890).toString())).name,
         JSON.parse(localStorage.getItem(Math.round(Math.random()*890).toString())).name,
         JSON.parse(localStorage.getItem(Math.round(Math.random()*890).toString())).name]
-      this.pokemon.option[Math.round(Math.random()*4)] = JSON.parse(localStorage.getItem(num.toString())).name
+      this.pokemon.option[Math.floor(Math.random()*4)] = JSON.parse(localStorage.getItem(num.toString())).name
       this.correctAnswer = JSON.parse(localStorage.getItem(num.toString())).name
 
 
     },
     showName(radio){
-      let imgIsShow
-      if (radio===window.correctAnswer){
+      console.log('9')
+      if (radio==this.correctAnswer){
         console.log('99')
-        imgIsShow = true
+        this.imgIsShow = true
       }
-      else  imgIsShow = false
-      return imgIsShow
+      else  this.imgIsShow = false
+      console.log(this.imgIsShow)
+
     },
 
   },
