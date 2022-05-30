@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="score" id="score">
+
+</div>
+<div class="color-content" id="color">
+</div>
+<script>
+    let count = 10
+    let difcolor = null
+    let sqts = document.getElementsByTagName('button')
+    let colorContent = document.getElementById('color')
+    for(let i = 0 ;i<=99;i++){
+        let sqt = document.createElement('button')
+        sqt.id = i.toString()
+        colorContent.appendChild(sqt)
+    }
+    let score = document.getElementById('score')
+    function  createColor (){
+        let first = Math.floor(Math.random()*255)
+        let second = Math.floor(Math.random()*255)
+        let third = Math.floor(Math.random()*255)
+        let color1 = 'rgb('+first+','+second+','+third+')'
+        let color2 = 'rgb('+first+','+second+','+(third>count*5?third-count*5:third+count*5)+')'
+        for (let index = 0 ; index<=99;index++){
+            sqts[index].style.backgroundColor = color1
+        }
+        difcolor = Math.floor(Math.random()*99)
+        sqts[difcolor].style.backgroundColor = color2
+    }
+    function  changeColor (){
+        if(this.id == difcolor){
+            let sqt = document.createElement('div')
+            sqt.classList.add('score-sqt')
+            sqt.style.backgroundColor = 'green'
+            score.appendChild(sqt)
+        }
+        else {
+            let sqt = document.createElement('div')
+            sqt.classList.add('score-sqt')
+            sqt.style.backgroundColor = 'red'
+            score.appendChild(sqt)
+        }
+        createColor()
+    }
+    createColor()
+    for(let i = 0 ;i<=99;i++){
+        sqts[i].addEventListener('click',changeColor)
+    }
+
+</script>
+</body>
+</html>
+<style>
+    body{
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    button{
+        width: 43px;
+        height: 43px;
+        margin: 0 3px 0 0 ;
+        border: 0;
+        padding: 0;
+    }
+    .score-sqt{
+        width: 30px;
+        height: 30px;
+        margin: 0 7px 0 0 ;
+        border: 0;
+        padding: 0;
+        border-radius: 50%;
+    }
+    .color-content{
+        width: 460px;
+        height: 450px;
+    }
+    .score{
+        width: 460px;
+        min-height:50px;
+        display: flex;
+
+    }
+</style>
