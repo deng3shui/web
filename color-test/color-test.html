@@ -6,7 +6,6 @@
 </head>
 <body>
 <div class="score" id="score">
-
 </div>
 <div class="color-content" id="color">
 </div>
@@ -26,7 +25,7 @@
         let second = Math.floor(Math.random()*255)
         let third = Math.floor(Math.random()*255)
         let color1 = 'rgb('+first+','+second+','+third+')'
-        let color2 = 'rgb('+first+','+second+','+(third>count*5?third-count*5:third+count*5)+')'
+        let color2 = 'rgb('+first+','+second+','+(third>count*10?third-count*10:third+count*10)+')'
         for (let index = 0 ; index<=99;index++){
             sqts[index].style.backgroundColor = color1
         }
@@ -46,7 +45,13 @@
             sqt.style.backgroundColor = 'red'
             score.appendChild(sqt)
         }
-        createColor()
+        count--
+        if(count){
+            createColor()
+        }
+        else {
+            colorContent.style.display = 'none'
+        }
     }
     createColor()
     for(let i = 0 ;i<=99;i++){
@@ -75,7 +80,7 @@
     .score-sqt{
         width: 30px;
         height: 30px;
-        margin: 0 7px 0 0 ;
+        margin: 0 16px 0 0 ;
         border: 0;
         padding: 0;
         border-radius: 50%;
